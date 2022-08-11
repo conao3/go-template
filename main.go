@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"text/template"
 	"io"
 	"log"
 	"os"
 
 	flags "github.com/jessevdk/go-flags"
+	"github.com/Masterminds/sprig/v3"
 )
 
 func main_() (int, error) {
@@ -41,9 +43,17 @@ func main_() (int, error) {
 		return 1, err
 	}
 
-	fmt.Print(string(t))
+	tmpl, err := template.New("base").Funcs(sprig.FuncMap()).Parse(string(t))
+	if err != nil {
+		return 1, err
+	}
 
-	return 1, nil
+	err = tmpl.Execute(os.Stdout, nil)
+	if err != nil {
+		return 1, err
+	}
+
+	return 0, nil
 }
 
 func main() {
