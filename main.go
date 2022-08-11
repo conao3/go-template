@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"text/template"
 	"io"
 	"log"
 	"os"
+	"text/template"
 
-	flags "github.com/jessevdk/go-flags"
 	"github.com/Masterminds/sprig/v3"
 	"github.com/goccy/go-yaml"
+	flags "github.com/jessevdk/go-flags"
 )
 
 func main_() (int, error) {
