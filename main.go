@@ -9,11 +9,13 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 	"github.com/Masterminds/sprig/v3"
+	"github.com/goccy/go-yaml"
 )
 
 func main_() (int, error) {
 	var opts struct {
 		Input string `short:"i" long:"input" description:"Input file" default:"-"`
+		Param string `short:"p" long:"param" description:"Parameter file"`
 	}
 
 	args, err := flags.Parse(&opts)
@@ -48,7 +50,25 @@ func main_() (int, error) {
 		return 1, err
 	}
 
-	err = tmpl.Execute(os.Stdout, nil)
+	var param any
+	if opts.Param != "" {
+		f, err := os.Open(opts.Param)
+		if err != nil {
+			return 1, err
+		}
+		defer f.Close()
+
+		t, err := io.ReadAll(f)
+		if err != nil {
+			return 1, err
+		}
+		err = yaml.Unmarshal([]byte(t), &param)
+		if err != nil {
+			return 1, err
+		}
+	}
+
+	err = tmpl.Execute(os.Stdout, param)
 	if err != nil {
 		return 1, err
 	}
