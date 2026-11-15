@@ -1,6 +1,6 @@
 module github.com/conao3/go-template
 
-go 1.27.2
+go 1.27.4
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
@@ -18,6 +18,6 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/shopspring/decimal v1.6.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
-	golang.org/x/crypto v0.58.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/crypto v0.59.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
 )
